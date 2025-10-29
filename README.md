@@ -132,18 +132,19 @@ Interpretation: predicted neighbors share a high proportion of genre tokens with
 
 ## Limitations
 
-- Cold-start for items with sparse/low-quality metadata.
-- No collaborative filtering in the final ranking; popular but textually dissimilar titles can be under-recommended.
-- Playtime reflects availability, price, and social effects in addition to preference; seed selection can reinforce popularity bias.
-- Metadata-driven similarity may encode genre stereotypes; periodic audits of token distributions are advisable.
+- Very large exploded datasets make merges/preprocessing/similarity computation slow and memory intensive.
+- Many missing values in metadata fields; some items/features were dropped to maintain quality.
+- Review text was not leveraged due to limited coverage and linkage issues (an alternative review dataset lacks stable `user_id`, only usernames, preventing reliable merges).
 
+- No collaborative filtering in the final ranking; popular but textually dissimilar titles can be under-recommended.
+- Playtime reflects availability, price, and social effects in addition to preference. However, sometimes high playtime data doesn't this user like this game; instead, maybe this user set up the auto play for this game.
 ## Future Work
 
 - Blend with collaborative filtering (implicit MF) for a hybrid model.
 - Replace dense pairwise search with ANN (e.g., HNSW/FAISS) for scalability.
 - Persist TF‑IDF model, item vectors, and neighbor index for reuse.
 - Enrich metadata with descriptive text embeddings (e.g., S‑BERT) and late-fuse with TF‑IDF.
-- Add re-ranking logics
+- Collect stable `user_id` for review datasets that only contain usernames (via mapping/API) to enable merging rich review text with interactions.
 
 ## References and License
 
